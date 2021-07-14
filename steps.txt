@@ -1,0 +1,40 @@
+Here are the steps I've taken so far:
+
+1. Created my file structure
+2. Create my virtual environments - virtual environments are now a standard part of python
+    python -m venv <name of my new environment>
+3. Activate my virtual environment (run the executable activate)
+    pc: venv\scripts\activate
+    mac/linux: source venv/bin/activate
+4. I can install flask!
+    All of our packages are gonna be installed thru pip -> so once we're inside our virtual environment, we can use pip commands
+
+    pip install flask
+
+5. Every project should have a requirements.txt file -> this file shows other developers what packages this project requires to work
+    to initially make and/or update your requirements.txt file
+        pip freeze > requirements.txt
+    
+    if you cloned a project with a requirements.txt file, you can run
+        pip install -r requirements.txt
+    which will go through and install all the packages listed in requirements.txt
+
+6. Add our configuration setup so that the app knows how to run
+    Three files control the setup of our application: config.py (and by extension the .env file), __init__.py, and run.py
+
+    Set up variables in config.py
+        matching variables as needed in .env
+    
+    Set up __init__.py file
+
+
+
+#### Database stuff below Here
+# Database packages: SQLalchemy, flask-migrate, psycopg2 (pyscopg2-binary for mac/linux)
+# Might also need some python modules depending on what you want in your database: commonly used - datetime, uuid
+
+# Set DATABASE_URL in .env file and link in config
+# initialize, migrate, and upgrade our database to match our models
+    # flask db init
+    # flask db migrate
+    # flask db upgrade

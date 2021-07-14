@@ -1,0 +1,5 @@
+.env
+venv
+__pycache__
+foxes-flask-venv
+migrations
