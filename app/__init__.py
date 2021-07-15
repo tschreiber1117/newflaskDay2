@@ -9,7 +9,10 @@ from .authentication.routes import auth
 # import our database stuff
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
-from .models import db
+from .models import db, login
+
+# import login authentification
+
 
 
 # define our application as instance of the Flask object
@@ -26,6 +29,12 @@ app.config.from_object(Config)
 db.init_app(app)
 
 migrate = Migrate(app, db)
+
+# configure login manager
+login.init_app(app)
+login.login_view = 'auth.signin'
+login.login_message_category = 'danger'
+
 
 # bring in our models (importing the models.py file)
 from . import models

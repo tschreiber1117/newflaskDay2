@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+
+
+
+{% block content %}
+
+
+<div><h1> THIS IS OUR CAR PAGE</h1></div>
+
+{% for car in cars %}
+
+<div class="container">
+    <div class="card" style="width: 18rem;">
+        <div class="card-body">
+        <h5 class="card-title">{{ animal.name }}</h5>
+        <p class="card-text">This {{ animal.name }} weighs {{ animal.weight }} and stand {{ animal.height }} ft tall.</p>
+        </div>
+    </div>
+</div>
+
+
+
+{% endfor %}
+{% endblock content %}
