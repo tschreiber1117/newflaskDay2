@@ -2,7 +2,9 @@
 from flask import Blueprint, render_template, request, flash, redirect, url_for
 
 from flask_login import current_user, login_required
+
 from sqlalchemy.orm import column_property
+
 from werkzeug.security import check_password_hash
 
 
@@ -66,7 +68,7 @@ def profile():
     return render_template('profile.html')
 
 @site.route('/cars')
-def display_cars():
+def displayCars():
     a = Car.query.all()
     #car = Car.query.filter
     return render_template('display_cars.html', cars=a)
@@ -79,12 +81,12 @@ def individualCar(car_id):
 @site.route('/cars/update/<int:car_id>', methods=["GET", "POST"])
 def updateIndividualCar(car_id):
     a = Car.query.get_or_404(car_id)
-    updateCar = UpdateCarForm()
+    updateCar = updateCarForm()
     if request.method == "POST" and updateCar.validate_on_submit():
         modeldata = updateCar.model.data
         yeardata = updateCar.year.data
-        color = updateCar.color.data
-        miles = updateCar.miles.data
+        colordata = updateCar.color.data
+        milesdata = updateCar.miles.data
 
         a.model = modeldata
         a.year = yeardata
@@ -106,4 +108,5 @@ def deleteIndividualCar(car_id):
     db.seesion.commit()
 
     flash(f"Successfully deleted {a.make}")
-    return redirect(url_for('site.display_cars'))
+    return redirect(url_for('site.displayCars'))
+

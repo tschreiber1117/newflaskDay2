@@ -5,11 +5,11 @@
 <div><h1> This is our car collection</h1></div>
 <div class="card" style="width: 18rem;">
     <div class="card-body">
-      <h5 class="card-title">{{ car.name }}</h5>
+      <h5 class="card-title">{{ car.make }}</h5>
       <h6 class="card-subtitle mb-2 text-muted">{{ car.model }} - {{ car.year }}</h6>
-      <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-      <a href="{{ url_for(site.updateindividualCar', car_id=car.id) }}" class="card-link">Update</a>
-      <a href="{{ url_for(site.deleteindividualCar', car_id=car.id) }}" class="card-link">Delete</a>
+      <p class="card-text">{{ car.year }} {{ car.make }} {{ car.model }} is {{ car.color }} and has {{ car.miles }} miles.</p>
+      <a href="{{ url_for(site.updateIndividualCar', car_id=car.id) }}" class="card-link">Update</a>
+      <a href="{{ url_for(site.deleteIndividualCar', car_id=car.id) }}" class="card-link">Delete</a>
     </div>
   </div>
 

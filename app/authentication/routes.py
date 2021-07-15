@@ -1,6 +1,4 @@
-  
 from flask import Blueprint, render_template, request, redirect, flash, url_for
-from flask.helpers import url_for
 from flask_login import login_user, logout_user, login_required, current_user
 from werkzeug.security import check_password_hash
 
@@ -10,14 +8,14 @@ from app.forms import newUserForm, loginForm
 
 from app.models import User, db
 
-@auth.route('/signup', methods=['GET', 'POST'])
+@auth.route('/signup', methods=['GET','POST'])
 def signup():
     form = newUserForm()
-    if request.method == 'POST' and form.validate_on_submit():
+    if request.method=='POST' and form.validate_on_submit():
         usernamedata = form.username.data
         emaildata = form.email.data
         passworddata = form.password.data
-        
+
         new_user = User(usernamedata, passworddata, emaildata)
 
         db.session.add(new_user)
@@ -27,7 +25,8 @@ def signup():
 
         return redirect(url_for('auth.signin'))
 
-    return render_template('signup.html', form=form)
+
+    return render_template('signup.html', form = form)
 
 @auth.route('/signin', methods=['GET', 'POST'])
 def signin():
@@ -38,7 +37,7 @@ def signin():
 
         user = User.query.filter_by(username=usernamedata).first()
         if user is None or not check_password_hash(user.password, passworddata):
-            flash(f' Incorrect username or password')
+            flash(f'Incorrect username or password')
             return redirect(url_for('auth.signin'))
         
         login_user(user)
