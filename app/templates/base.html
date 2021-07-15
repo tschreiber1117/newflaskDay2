@@ -33,14 +33,20 @@
                 <a href="">
                     <li>Donate</li>
                 </a>
+                
+                {% if current_user_is_authenticated %}
+
+
                 <a href="{{ url_for('site.profile') }}">
                     <li>Profile</li>
                 </a>
                 <!--User Auth Check for SignIn/SignUp Nav Buttons-->
 
                 <a href="">
-                    <li>Log Out</li>
+                    <li>Sign Out</li>
                 </a>
+
+                {% else %}
 
                 <a href="{{ url_for('auth.signin') }}">
                     <li>Sign In</li>

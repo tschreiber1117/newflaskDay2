@@ -24,3 +24,11 @@ class loginForm(FlaskForm):
     username: StringField('Username', validators=[DataRequired()])
     password = PasswordField('Password', validators=[DataRequired()])
     submit_button = SubmitField()
+
+class updateCarForm(FlaskForm):
+    make = StringField('Make', validators=[DataRequired()])
+    model = StringField('Model')
+    year = IntegerField('Year')
+    color = StringField('Color')
+    miles = IntegerField('Miles')
+    submit_button = SubmitField()

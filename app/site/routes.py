@@ -2,12 +2,15 @@
 from flask import Blueprint, render_template, request, flash, redirect, url_for
 
 from flask_login import current_user, login_required
+from sqlalchemy.orm import column_property
+from werkzeug.security import check_password_hash
+
 
 # import any database model we're using
 from app.models import Car, db
 
 # import our form that we're using
-from app.forms import newCarForm
+from app.forms import newCarForm, updateCarForm
 
 """
 Note that in the below code, 
@@ -67,3 +70,40 @@ def display_cars():
     a = Car.query.all()
     #car = Car.query.filter
     return render_template('display_cars.html', cars=a)
+
+@site.route('/cars/<int:car_id>')
+def individualCar(car_id):
+    a = Car.query.get_or_404(car_id)
+    return render_template('individual_car.html', car = a)
+
+@site.route('/cars/update/<int:car_id>', methods=["GET", "POST"])
+def updateIndividualCar(car_id):
+    a = Car.query.get_or_404(car_id)
+    updateCar = UpdateCarForm()
+    if request.method == "POST" and updateCar.validate_on_submit():
+        modeldata = updateCar.model.data
+        yeardata = updateCar.year.data
+        color = updateCar.color.data
+        miles = updateCar.miles.data
+
+        a.model = modeldata
+        a.year = yeardata
+        a.color = colordata
+        a.miles = milesdata
+
+        db.session.commit
+
+        flash(f'{a.make} has been updated!')
+        return redirect(url_for('site.individualCar', car_id=car_id))
+
+    return render_template('update_individual_car.html', car = a, form=updateCar)
+
+@site.route('/cars/delete/<int:car_id>')
+def deleteIndividualCar(car_id):
+    a = Car.query.get_or_404(car_id)
+
+    db.session.delete(a)
+    db.seesion.commit()
+
+    flash(f"Successfully deleted {a.make}")
+    return redirect(url_for('site.display_cars'))

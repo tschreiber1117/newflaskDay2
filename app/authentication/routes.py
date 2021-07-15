@@ -2,6 +2,7 @@
 from flask import Blueprint, render_template, request, redirect, flash, url_for
 from flask.helpers import url_for
 from flask_login import login_user, logout_user, login_required, current_user
+from werkzeug.security import check_password_hash
 
 auth = Blueprint('auth', __name__, template_folder='auth_templates')
 
@@ -36,7 +37,7 @@ def signin():
         passworddata = f.password.data
 
         user = User.query.filter_by(username=usernamedata).first()
-        if user is None or user.password != passworddata:
+        if user is None or not check_password_hash(user.password, passworddata):
             flash(f' Incorrect username or password')
             return redirect(url_for('auth.signin'))
         

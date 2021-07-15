@@ -13,8 +13,9 @@
 <div class="container">
     <div class="card" style="width: 18rem;">
         <div class="card-body">
+            <a href="{{ url_for('site.individualCar', car_id=car.id}
         <h5 class="card-title">{{ animal.name }}</h5>
-        <p class="card-text">This {{ animal.name }} weighs {{ animal.weight }} and stand {{ animal.height }} ft tall.</p>
+        <p class="card-text">This {{ car.make }} weighs {{ animal.weight }} and stand {{ animal.height }} ft tall.</p>
         </div>
     </div>
 </div>
