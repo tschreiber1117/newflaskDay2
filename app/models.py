@@ -22,7 +22,7 @@ db = SQLAlchemy()
 class Car(db.Model):
     # kind of similar to our CREATE TABLE queries -> we're telling the database what columns/attributes go into this table/model
     id = db.Column(db.Integer, primary_key=True)
-    make = db.Column(db.String, nullable=False, unique=True)
+    make = db.Column(db.String, nullable=False)
     model = db.Column(db.String, nullable=True, default='Unknown')
     year = db.Column(db.Integer, nullable=True, default='Unknown')
     color = db.Column(db.String, nullable=True, default='Unknown')

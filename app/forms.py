@@ -14,14 +14,14 @@ class newCarForm(FlaskForm):
     submit_button = SubmitField()
 
 class newUserForm(FlaskForm):
-    username: StringField('Username', validators=[DataRequired()])
+    username = StringField('Username', validators=[DataRequired()])
     email = StringField('Email', validators=[DataRequired()])
     password = PasswordField('Password', validators=[DataRequired()])
     confirm_password = PasswordField('Password', validators=[DataRequired(), EqualTo('password')])
     submit_button = SubmitField()
 
 class loginForm(FlaskForm):
-    username: StringField('Username', validators=[DataRequired()])
+    username = StringField('Username', validators=[DataRequired()])
     password = PasswordField('Password', validators=[DataRequired()])
     submit_button = SubmitField()
 

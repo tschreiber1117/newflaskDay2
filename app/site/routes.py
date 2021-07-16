@@ -45,14 +45,16 @@ def home():
             print(makedata, yeardata)
 
             # create an animal object in my database based off the form data
-            new_car = Car(name=makedata, model=modeldata, year=yeardata, color=colordata, miles=milesdata)
+            new_car = Car(make=makedata, model=modeldata, year=yeardata, color=colordata, miles=milesdata)
+
+            print("hey")
 
             #add the newly created animal to our database - always a two step process
             db.session.add(new_car)
             db.session.commit()
 
             # tell our user that we've added something - using flash messages!
-            flash(f'You have successfully added the car {makedata, modeldata} to your database.')
+            flash(f'You have successfully added the car {makedata} to your database.')
 
             return redirect(url_for('site.home'))
     except:
