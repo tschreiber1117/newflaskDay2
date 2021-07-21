@@ -34,9 +34,6 @@
                     <li>Donate</li>
                 </a>
                 
-                {% if current_user_is_authenticated %}
-
-
                 <a href="{{ url_for('site.profile') }}">
                     <li>Profile</li>
                 </a>
@@ -45,6 +42,9 @@
                 <a href="">
                     <li>Sign Out</li>
                 </a>
+
+                {% if current_user_is_authenticated %}
+
 
                 {% else %}
 
