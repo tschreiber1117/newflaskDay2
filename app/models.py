@@ -24,13 +24,24 @@ class Car(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     make = db.Column(db.String, nullable=False)
     model = db.Column(db.String, nullable=True, default='Unknown')
-    year = db.Column(db.Integer, nullable=True, default='Unknown')
-    color = db.Column(db.String, nullable=True, default='Unknown')
-    miles = db.Column(db.Integer)
+    year = db.Column(db.Integer, nullable=False)
+    price = db.Column(db.Float(50), nullable=False)
+    desc = db.Column(db.String(250), nullable=False)
+    img = db.Column(db.String(250), nullable=False)
 
     def __repr__(self):
         return f"<Car: {self.name}>"
 
+    def to_dict(self):
+        return {
+            'id': self.id,
+            'make': self.make,
+            'model': self.model,
+            'year': self.year,
+            'price': self.price,
+            'desc': self.desc,
+            'img': self.img
+        }
 class User(db.Model, UserMixin):
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(15), nullable=False, unique=True)

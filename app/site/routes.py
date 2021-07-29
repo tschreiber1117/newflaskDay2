@@ -1,12 +1,8 @@
 # import whatever modules/functions/classes that we need for our code to work as intended
-from flask import Blueprint, render_template, request, flash, redirect, url_for
+from flask import Blueprint, render_template, request, flash, redirect, url_for, jsonify
 
 from flask_login import current_user, login_required
-
-from sqlalchemy.orm import column_property
-
-from werkzeug.security import check_password_hash
-
+from sqlalchemy.orm.session import make_transient_to_detached
 
 # import any database model we're using
 from app.models import Car, db
@@ -39,13 +35,14 @@ def home():
             makedata = form.make.data
             modeldata = form.model.data
             yeardata = form.year.data
-            colordata = form.color.data
-            milesdata = form.miles.data
+            pricedata = form.price.data
+            descdata = form.desc.data
+            imgdata = form.img.data
             
-            print(makedata, yeardata)
+            print(makedata, descdata)
 
             # create an animal object in my database based off the form data
-            new_car = Car(make=makedata, model=modeldata, year=yeardata, color=colordata, miles=milesdata)
+            new_car = Car(make=makedata, model=modeldata, year=yeardata, price=pricedata, desc=descdata, img=imgdata)
 
             print("hey")
 
@@ -80,20 +77,46 @@ def individualCar(car_id):
     a = Car.query.get_or_404(car_id)
     return render_template('individual_car.html', car = a)
 
+
 @site.route('/cars/update/<int:car_id>', methods=["GET", "POST"])
+@login_required
 def updateIndividualCar(car_id):
     a = Car.query.get_or_404(car_id)
     updateCar = updateCarForm()
     if request.method == "POST" and updateCar.validate_on_submit():
+        makedata = updateCar.make.data
         modeldata = updateCar.model.data
         yeardata = updateCar.year.data
-        colordata = updateCar.color.data
-        milesdata = updateCar.miles.data
+        descdata = updateCar.desc.data
+        imgdata = updateCar.img.data
 
-        a.model = modeldata
-        a.year = yeardata
-        a.color = colordata
-        a.miles = milesdata
+        # deal with price being a string and needing conversion
+        if updateCar.price.data:
+            try:
+                a.price = float(updateCar.price.data)
+                print('changed price')
+            except:
+                flash(f"Invalid Price, couldn't update.")
+                return redirect(url_for('site.individualCar', car_id=car_id))
+        print('got past form data')
+        #fixed update to actually update thee car if data present from the form
+        if makedata:
+            a.make = makedata
+            print('changed make')
+        if modeldata:
+            a.model = modeldata
+            print('changed model')
+        if yeardata:
+            a.year = yeardata
+            print('changed year')
+        if descdata:
+            a.desc = descdata
+            print('changed desc')
+        if imgdata:
+            a.img = imgdata
+            print('changed img')
+
+        print(makedata, modeldata, descdata, updateCar.price.data)
 
         db.session.commit
 
@@ -112,3 +135,21 @@ def deleteIndividualCar(car_id):
     flash(f"Successfully deleted {a.make}")
     return redirect(url_for('site.displayCars'))
 
+# Add a Public API endpoint that anyone can access to get my product information
+# Note: be careful about using public API endpoints -> we can talk about authentication required api endpoints another day
+# a public api endpoint can lead to unintentionally large cloud hosting costs if not set up properly
+# this is a simplified and improper implementation below
+@site.route('/products', methods=['GET'])
+def get_products():
+    """
+    [GET] /products returns jsonified data on the animals within our database
+    """
+    # query database to get the animals
+    cars = Car.query.all()
+    print(cars)
+    # turn the list of animal objects into a list of animal dictionaries
+    cars = [car.to_dict() for car in cars]
+    # jsonify that list
+    cars = jsonify(cars)
+    # return that list
+    return cars

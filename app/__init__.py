@@ -10,6 +10,8 @@ from .authentication.routes import auth
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
 from .models import db, login
+from flask_cors import CORS
+
 
 # import login authentification
 
@@ -17,6 +19,7 @@ from .models import db, login
 
 # define our application as instance of the Flask object
 app = Flask(__name__)
+cors = CORS(app)
 
 # register our blueprints
 app.register_blueprint(site)

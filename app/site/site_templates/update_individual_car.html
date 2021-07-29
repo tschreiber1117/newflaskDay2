@@ -9,19 +9,23 @@
     <div class="form-group">
         <fieldset id="model-field">
             {{ form.model.label }}
-            {{ form.model(class = "form-control", placeholder = "New Model...")}}
+            {{ form.model(class = "form-control", placeholder = "Change car model?")}}
         </fieldset>
         <fieldset id="year-field">
             {{ form.year.label }}
-            {{ form.year(class = "form-control", placeholder = "New Year...")}}
+            {{ form.year(class = "form-control", placeholder = "Change the year?")}}
         </fieldset>
-        <fieldset id="color-field">
-            {{ form.color.label }}
-            {{ form.color(class = "form-control", placeholder = "New color?")}}
+        <fieldset id="price-field">
+            {{ form.price.label }}
+            {{ form.price(class = "form-control", placeholder = "Change the price?")}}    
         </fieldset>
-        <fieldset id="miles-field">
-            {{ form.miles.label }}
-            {{ form.miles(class = "form-control", placeholder = "How many more miles?")}}
+        <fieldset id="desc-field">
+            {{ form.desc.label }}
+            {{ form.desc(class = "form-control", placeholder = "New description?")}}
+        </fieldset>
+        <fieldset id="img-field">
+            {{ form.img.label }}
+            {{ form.img(class = "form-control", placeholder = "New image url")}}
         </fieldset>
         <!--Submit Button Area-->
         {{ form.submit_button(class = "btn btn-primary btn-block") }}
