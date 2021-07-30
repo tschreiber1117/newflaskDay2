@@ -30,4 +30,7 @@ class updateCarForm(FlaskForm):
     make = StringField('Make', validators=[DataRequired()])
     model = StringField('Model')
     year = StringField('Year')
+    price = DecimalField('Price')
+    desc = StringField('Description')
+    img = StringField('Image URL')
     submit_button = SubmitField()
