@@ -15,7 +15,7 @@
         <div class="card-body">
             <a href="{{ url_for('site.individualCar', car_id=car.id) }}"><h5 class="card-title">{{ car.make }}</h5></a>
         
-        <p class="card-text">This {{ car.year }} {{ car.make }}  {{ car.model }} is {{ car.color }} and has {{ car.miles }} miles.</p>
+        <p class="card-text">This {{ car.year }} {{ car.make }}  {{ car.model }}. {{ car.desc }} and costs ${{ car.price }}.</p>
         </div>
     </div>
 </div>

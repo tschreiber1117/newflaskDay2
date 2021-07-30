@@ -14,6 +14,18 @@
             {{ form.year.label }}
             {{ form.year(class = "form-control", placeholder = "Year...")}}
         </fieldset>
+        <fieldset id="price-field">
+            {{ form.price.label }}
+            {{ form.price(class = "form-control", placeholder = "Price...")}}
+        </fieldset>
+        <fieldset id="desc-field">
+            {{ form.desc.label }}
+            {{ form.desc(class = "form-control", placeholder = "Description...")}}
+        </fieldset>
+        <fieldset id="img-field">
+            {{ form.img.label }}
+            {{ form.img(class = "form-control", placeholder = "Image URL...")}}
+        </fieldset>
         <!--Submit Button Area-->
         {{ form.submit_button(class = "btn btn-primary btn-block") }}
     </div>

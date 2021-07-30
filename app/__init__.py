@@ -5,6 +5,7 @@ from config import Config
 # import our Blueprint object from the blueprint's routes file
 from .site.routes import site
 from .authentication.routes import auth
+from .payments.routes import payments
 
 # import our database stuff
 from flask_sqlalchemy import SQLAlchemy
@@ -12,18 +13,18 @@ from flask_migrate import Migrate
 from .models import db, login
 from flask_cors import CORS
 
-
 # import login authentification
 
 
 
 # define our application as instance of the Flask object
 app = Flask(__name__)
-cors = CORS(app)
+cors = CORS(app, origins=['http://localhost:3000'])
 
 # register our blueprints
 app.register_blueprint(site)
 app.register_blueprint(auth)
+app.register_blueprint(payments)
 
 # configure our application based on the Config class from the config.py file
 app.config.from_object(Config)

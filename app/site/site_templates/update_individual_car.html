@@ -1,3 +1,4 @@
+<link rel="stylesheet" href="../../static/css/main.css">
 {% extends 'base.html' %}
 
 {% block content}
@@ -7,6 +8,10 @@
 <form method="POST">
     {{ form.hidden_tag() }}
     <div class="form-group">
+        <fieldset id="make-field">
+            {{ form.make.label }}
+            {{ form.make(class = "form-control", placeholder = "Change car make?")}}
+        </fieldset>
         <fieldset id="model-field">
             {{ form.model.label }}
             {{ form.model(class = "form-control", placeholder = "Change car model?")}}

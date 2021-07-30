@@ -8,7 +8,7 @@ class newCarForm(FlaskForm):
     # name, weight, height, climate, region
     make = StringField('Make', validators=[DataRequired()])
     model = StringField('Model', validators=[DataRequired()])
-    year = StringField('Year', validators=[DataRequired()])
+    year = IntegerField('Year', validators=[DataRequired()])
     price = DecimalField('Price', validators=[DataRequired()])
     desc = StringField('Description', validators=[DataRequired()])
     img = StringField('Image URL', validators=[DataRequired()])
@@ -30,7 +30,4 @@ class updateCarForm(FlaskForm):
     make = StringField('Make', validators=[DataRequired()])
     model = StringField('Model')
     year = StringField('Year')
-    price = StringField('Price')
-    desc = StringField('Description')
-    img = StringField('Image URL')
     submit_button = SubmitField()

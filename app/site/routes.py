@@ -2,7 +2,6 @@
 from flask import Blueprint, render_template, request, flash, redirect, url_for, jsonify
 
 from flask_login import current_user, login_required
-from sqlalchemy.orm.session import make_transient_to_detached
 
 # import any database model we're using
 from app.models import Car, db
@@ -38,13 +37,11 @@ def home():
             pricedata = form.price.data
             descdata = form.desc.data
             imgdata = form.img.data
-            
-            print(makedata, descdata)
+
+            print(makedata)
 
             # create an animal object in my database based off the form data
             new_car = Car(make=makedata, model=modeldata, year=yeardata, price=pricedata, desc=descdata, img=imgdata)
-
-            print("hey")
 
             #add the newly created animal to our database - always a two step process
             db.session.add(new_car)
@@ -87,6 +84,7 @@ def updateIndividualCar(car_id):
         makedata = updateCar.make.data
         modeldata = updateCar.model.data
         yeardata = updateCar.year.data
+        pricedata = updateCar.price.data
         descdata = updateCar.desc.data
         imgdata = updateCar.img.data
 
@@ -130,7 +128,7 @@ def deleteIndividualCar(car_id):
     a = Car.query.get_or_404(car_id)
 
     db.session.delete(a)
-    db.seesion.commit()
+    db.session.commit()
 
     flash(f"Successfully deleted {a.make}")
     return redirect(url_for('site.displayCars'))

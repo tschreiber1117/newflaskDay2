@@ -29,8 +29,9 @@ class Car(db.Model):
     desc = db.Column(db.String(250), nullable=False)
     img = db.Column(db.String(250), nullable=False)
 
+
     def __repr__(self):
-        return f"<Car: {self.name}>"
+        return f"<Car: {self.make} {self.model}>"
 
     def to_dict(self):
         return {
@@ -38,9 +39,6 @@ class Car(db.Model):
             'make': self.make,
             'model': self.model,
             'year': self.year,
-            'price': self.price,
-            'desc': self.desc,
-            'img': self.img
         }
 class User(db.Model, UserMixin):
     id = db.Column(db.Integer, primary_key=True)

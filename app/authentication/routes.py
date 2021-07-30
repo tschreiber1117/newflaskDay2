@@ -50,7 +50,4 @@ def signin():
 @auth.route('/signout', methods=['GET'])
 def signout():
     logout_user()
-    flash(f'You successfully signed out')
     return redirect(url_for('site.home'))
-
-    
